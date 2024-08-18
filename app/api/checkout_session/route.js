@@ -6,9 +6,9 @@ const formatAmountForStripe = (amount)=>{
     return Math.round(amount *100)
 }
 
-export async function POS(req) {
+export async function POST(req) {
     const params = {
-        mode: 'subscription',
+        mode: 'subscription', //chnage mode to submit_type?
         payment_method_types: ['card'],
         line_items: [
           {
