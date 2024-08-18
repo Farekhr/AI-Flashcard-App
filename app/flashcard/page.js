@@ -46,10 +46,7 @@ export default function Flashcard(){
     return (
         <Container maxWidth="100vw">
             <Grid container spacing={3} sx={{mt:4}}>
-            {flashcards.length > 0 && (
-            <Box sx={{mt:4}}>
-                <Typography>Flashcards Preview</Typography>
-                <Grid container spacing = {3}>
+            
                     {flashcards.map((flashcard, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}> 
                             <Card>
@@ -101,10 +98,7 @@ export default function Flashcard(){
                                 </CardActionArea>
                             </Card>
                         </Grid>
-                    ))}
-                </Grid>
-            </Box>
-        )}
+                    ))}          
             </Grid>
         </Container>
     )

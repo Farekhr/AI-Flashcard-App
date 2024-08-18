@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import getStripe from "@/utils/get-stripe";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
@@ -5,6 +7,31 @@ import Head from "next/head";
 import { AppBar, Toolbar, Container, Typography, Button, Box, Grid } from "@mui/material";
 
 export default function Home() {
+
+  const HandleSubmit = async ()=>{
+    const checkoutSession = await fetch('/api/checkout_session', {
+      method: 'POST',
+      headers: {
+        oridin: 'http://localhost:3000',
+      },
+    })
+
+    const checkoutSessionJson =await checkoutSession.json()
+
+    if (checkoutSession.statusCode === 500){
+      console.error(checkoutSession.message)
+      return
+    }
+
+    const stripe = await getStripe()
+    const {error} = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id
+    })
+
+    if (error) {
+      console.warn(error.message)
+    }
+  }
   return (
     <Container maxwidth="lg">
       <Head>
@@ -94,7 +121,7 @@ export default function Home() {
                 {' '}
                 description price Pro
               </Typography>
-              <Button variant ='contained' color='primary'>Choose Pro</Button>
+              <Button variant ='contained' color='primary' onClick={HandleSubmit}>Choose Pro</Button>
             </Box>
           </Grid>
         </Grid>
