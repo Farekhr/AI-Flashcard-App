@@ -8,13 +8,40 @@ import { AppBar, Toolbar, Container, Typography, Button, Box, Grid } from "@mui/
 
 export default function Home() {
 
-  const HandleSubmit = async () => {
-    const checkoutSession = await fetch('/api/checkout_session', {
+  const HandleSubmitPro = async () => {
+    const checkoutSession = await fetch('/api/checkout_session_pro', {
       method: 'POST',
       headers: {
         origin: 'http://localhost:3000',
       },
     })
+    
+
+    const checkoutSessionJson = await checkoutSession.json()
+
+    if (checkoutSession.statusCode === 500) {
+      console.error(checkoutSession.message)
+      return
+    }
+
+    const stripe = await getStripe()
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id
+    })
+
+    if (error) {
+      console.warn(error.message)
+    }
+  }
+
+  const HandleSubmitBasic = async () => {
+    const checkoutSession = await fetch('/api/checkout_session_basic', {
+      method: 'POST',
+      headers: {
+        origin: 'http://localhost:3000',
+      },
+    })
+    
 
     const checkoutSessionJson = await checkoutSession.json()
 
@@ -48,6 +75,8 @@ export default function Home() {
             <Button color="inherit" href="/sign-up">Sign Up</Button>
           </SignedOut>
           <SignedIn>
+            <Button color="inherit" href="/flashcards">MY flashcards</Button>
+            <Button color="inherit" href="/generate">generate</Button>
             <UserButton />
           </SignedIn>
         </Toolbar>
@@ -92,7 +121,7 @@ export default function Home() {
                 <Typography>Basic</Typography>
                 <Typography>$5/month</Typography>
                 <Typography>Description price Basic</Typography>
-                <Button variant='contained' color='primary'>Choose Basic</Button>
+                <Button variant='contained' color='primary' onClick={HandleSubmitBasic}>Choose Basic</Button>
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -107,7 +136,7 @@ export default function Home() {
                 <Typography>Pro</Typography>
                 <Typography>$10/month</Typography>
                 <Typography>Description price Pro</Typography>
-                <Button variant='contained' color='primary' onClick={HandleSubmit}>Choose Pro</Button>
+                <Button variant='contained' color='primary' onClick={HandleSubmitPro}>Choose Pro</Button>
               </Box>
             </Grid>
           </Grid>
