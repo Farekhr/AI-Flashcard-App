@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { doc, collection, setDoc, getDoc, writeBatch } from "firebase/firestore"
 import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs"
-
+//New
 export default function Generate() {
     const { isLoaded, isSignedIn, user } = useUser()
     const [flashcards, setFlashcards] = useState([])
