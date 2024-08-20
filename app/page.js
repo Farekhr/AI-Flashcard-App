@@ -190,8 +190,8 @@ export default function Home() {
                   }
                 }}>
                 <Typography sx={{ color: '#00FF7F' }}>Free</Typography>
-                <Typography>Try for free by logging in or signing up</Typography>
-                <Typography sx={{ mb: 2 }}></Typography>
+                <Typography>Try for free by logging in or signing up.</Typography>
+                <Typography sx={{ mb: 2 }}>Maximum 10 flashcards per prompt.</Typography>
                 <Button variant='contained' sx={{ backgroundColor: '#00FF7F', color: 'black' }} href="/sign-in">Login</Button>
               </Box>
             </Grid>
@@ -209,7 +209,7 @@ export default function Home() {
                 }}>
                 <Typography sx={{ color: '#00FF7F' }}>Basic</Typography>
                 <Typography>$5/month</Typography>
-                <Typography sx={{ mb: 2 }}></Typography>
+                <Typography sx={{ mb: 2 }}>Maximum 30 flashcards per prompt.</Typography>
                 <Button variant='contained' sx={{ backgroundColor: '#00FF7F', color: 'black' }} onClick={HandleSubmitBasic}>Choose Basic</Button>
               </Box>
             </Grid>
@@ -227,7 +227,7 @@ export default function Home() {
                 }}>
                 <Typography sx={{ color: '#00FF7F' }}>Pro</Typography>
                 <Typography>$10/month</Typography>
-                <Typography sx={{ mb: 2 }}></Typography>
+                <Typography sx={{ mb: 2 }}>Unlimited flashcards per prompt.</Typography>
                 <Button variant='contained' sx={{ backgroundColor: '#00FF7F', color: 'black' }} onClick={HandleSubmitPro}>Choose Pro</Button>
               </Box>
             </Grid>
